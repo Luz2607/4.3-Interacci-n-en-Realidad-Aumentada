@@ -1,0 +1,48 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  font-family: system-ui, Arial, sans-serif;
+}
+
+#ar-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* Overlay de texto en la parte superior */
+#ui-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 0.9rem;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+/* El botón de AR que genera ARButton.js aparece en la parte inferior */
+button.webxr-ar-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: none;
+  background: #ffffff;
+  color: #000;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* Opcional: estilo del botón cuando AR no está disponible */
+button.webxr-ar-button[disabled] {
+  background: #ccc;
+  color: #666;
+}
