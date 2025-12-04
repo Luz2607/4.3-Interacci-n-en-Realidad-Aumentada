@@ -32,26 +32,7 @@
         </div>
       </model-viewer>
 
-      <!-- Modelo PELEA -->
-      <model-viewer class="mv" id="mv-pelea"
-        src="modelo/pelea.glb"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        tone-mapping="neutral"
-        poster="img/poster.webp"
-        shadow-intensity="1"
-        autoplay>
-        <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
-        </div>
-        <button slot="ar-button">
-          View in your space
-        </button>
-        <div id="ar-prompt">
-          <img src="img/ar_hand_prompt.png">
-        </div>
-      </model-viewer>
+
 
       <!-- Modelo RUMBA -->
       <model-viewer class="mv" id="mv-rumba"
@@ -116,37 +97,16 @@
         </div>
       </model-viewer>
 
-      <!-- Modelo PLAYING -->
-      <model-viewer class="mv" id="mv-playing"
-        src="modelo/playing.glb"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        tone-mapping="neutral"
-        poster="img/poster.webp"
-        shadow-intensity="1"
-        autoplay>
-        <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
-        </div>
-        <button slot="ar-button">
-          View in your space
-        </button>
-        <div id="ar-prompt">
-          <img src="img/ar_hand_prompt.png">
-        </div>
-      </model-viewer>
 
     </div>
 
     <!-- ===== BOTONES FIJOS (NO SE MUEVEN CON EL MODELO) ===== -->
     <div id="ui-buttons">
       <button data-target="mv-inicial">Inicial</button>
-      <button data-target="mv-pelea">Pelea</button>
       <button data-target="mv-rumba">Rumba</button>
       <button data-target="mv-silly">Silly</button>
       <button data-target="mv-hiphop">Hip hop</button>
-      <button data-target="mv-playing">Playing</button>
+
     </div>
 
     <!-- JS -->

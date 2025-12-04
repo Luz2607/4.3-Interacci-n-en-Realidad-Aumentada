@@ -130,13 +130,14 @@ body {
 }
 
 /* ===== Barra de botones fija ===== */
+/* ===== Barra de botones fija ===== */
 
 #ui-buttons {
   position: fixed;
-  bottom: 16px;
+  bottom: 80px;              /* 👈 antes 16px */
   left: 50%;
   transform: translateX(-50%);
-  z-index: 20;
+  z-index: 10;               /* por encima del modelo, pero por debajo del prompt AR */
 
   display: flex;
   flex-wrap: wrap;
@@ -145,6 +146,14 @@ body {
   max-width: 90%;
   justify-content: center;
 }
+
+/* Móvil: sube un poco más la barra para que se vea mejor */
+@media (max-width: 600px) {
+  #ui-buttons {
+    bottom: 110px;
+  }
+}
+
 
 /* Estilo de cada botón */
 #ui-buttons button {
