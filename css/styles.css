@@ -134,7 +134,7 @@ body {
 
 #ui-buttons {
   position: fixed;
-  bottom: 80px;              /* 👈 antes 16px */
+  bottom: 30px;              /* 👈 antes 16px */
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;               /* por encima del modelo, pero por debajo del prompt AR */
