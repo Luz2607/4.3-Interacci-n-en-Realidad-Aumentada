@@ -1,48 +1,174 @@
-html, body {
+/* Oculta contenido interno hasta que <model-viewer> esté definido */
+:not(:defined) > * {
+  display: none;
+}
+
+html {
+  height: 100%;
+}
+
+body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* CONTENEDOR DE ESCENA */
+#scene {
+  position: relative;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
-  height: 100%;
-  font-family: system-ui, Arial, sans-serif;
 }
 
-#ar-container {
+/* Todos los model-viewer apilados uno sobre otro */
+.mv {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  background-color: #ffffff;
+
+  opacity: 0;
+  pointer-events: none;    /* no reciben clics si no están activos */
 }
 
-/* Overlay de texto en la parte superior */
-#ui-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  font-size: 0.9rem;
-  z-index: 10;
-  box-sizing: border-box;
+/* Solo el activo se ve y recibe interacción */
+.mv.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* El botón de AR que genera ARButton.js aparece en la parte inferior */
-button.webxr-ar-button {
-  position: fixed;
-  bottom: 20px;
+/* ===== Barra de progreso ===== */
+
+.progress-bar {
+  display: block;
+  width: 33%;
+  height: 10%;
+  max-height: 2%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 25px;
+  box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.5),
+              0px 0px 5px 1px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar.hide {
+  visibility: hidden;
+  transition: visibility 0.3s;
+}
+
+.update-bar {
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 0%;
+  height: 100%;
+  border-radius: 25px;
+  float: left;
+  transition: width 0.3s;
+}
+
+/* ===== Botón AR ===== */
+
+#ar-button,
+.mv button[slot="ar-button"] {
+  background-image: url(ar_icon.png);
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: 12px 50%;
+  background-color: #fff;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  padding: 12px 20px;
-  font-size: 1rem;
-  border-radius: 20px;
-  border: none;
-  background: #ffffff;
-  color: #000;
+  white-space: nowrap;
+  bottom: 16px;
+  padding: 0px 16px 0px 40px;
+  font-family: Roboto, Helvetica Neue, sans-serif;
+  font-size: 14px;
+  color: #4285f4;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 18px;
+  border: 1px solid #dadce0;
   cursor: pointer;
-  z-index: 20;
 }
 
-/* Opcional: estilo del botón cuando AR no está disponible */
-button.webxr-ar-button[disabled] {
-  background: #ccc;
-  color: #666;
+#ar-button:active {
+  background-color: #e8eaed;
+}
+
+/* ===== Prompt AR animado ===== */
+
+@keyframes circle {
+  from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+  to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+}
+
+@keyframes elongate {
+  from { transform: translateX(100px); }
+  to   { transform: translateX(-100px); }
+}
+
+#ar-prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  animation: elongate 2s infinite ease-in-out alternate;
+  display: none;
+}
+
+.mv[ar-status="session-started"] > #ar-prompt {
+  display: block;
+}
+
+#ar-prompt > img {
+  animation: circle 4s linear infinite;
+}
+
+/* ===== Barra de botones fija ===== */
+
+#ui-buttons {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  max-width: 90%;
+  justify-content: center;
+}
+
+/* Estilo de cada botón */
+#ui-buttons button {
+  background: rgba(15, 23, 42, 0.9);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+#ui-buttons button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+  background: rgba(59, 130, 246, 0.95);
 }

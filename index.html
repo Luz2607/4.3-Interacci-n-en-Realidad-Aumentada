@@ -1,21 +1,156 @@
 <!doctype html>
 <html lang="es">
-<head>
-  <meta charset="utf-8">
-  <title>WebXR AR - Mixamo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <!-- Contenedor para el canvas de Three.js -->
-  <div id="ar-container"></div>
+  <head>
+    <title>WebXR AR - Varios modelos Mixamo</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Modelos Mixamo en AR con botones para cambiar animaciones">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="./css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- CONTENEDOR DE ESCENA: AQUÍ VAN TODOS LOS MODELOS APILADOS -->
+    <div id="scene">
 
-  <!-- Instrucción en pantalla (2D) -->
-  <div id="ui-overlay">
-    <p>Toca el botón "Enter AR" y luego toca los botones flotantes para cambiar el movimiento.</p>
-  </div>
+      <!-- Modelo INICIAL -->
+      <model-viewer class="mv active" id="mv-inicial"
+        src="modelo/inicial.glb"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        tone-mapping="neutral"
+        poster="img/poster.webp"
+        shadow-intensity="1"
+        autoplay>
+        <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+        </div>
+        <button slot="ar-button" id="ar-button">
+          View in your space
+        </button>
+        <div id="ar-prompt">
+          <img src="img/ar_hand_prompt.png">
+        </div>
+      </model-viewer>
 
-  <!-- SOLO ESTE SCRIPT -->
-  <script type="module" src="./js/app.js"></script>
-</body>
+      <!-- Modelo PELEA -->
+      <model-viewer class="mv" id="mv-pelea"
+        src="modelo/pelea.glb"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        tone-mapping="neutral"
+        poster="img/poster.webp"
+        shadow-intensity="1"
+        autoplay>
+        <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+        </div>
+        <button slot="ar-button">
+          View in your space
+        </button>
+        <div id="ar-prompt">
+          <img src="img/ar_hand_prompt.png">
+        </div>
+      </model-viewer>
+
+      <!-- Modelo RUMBA -->
+      <model-viewer class="mv" id="mv-rumba"
+        src="modelo/rumba.glb"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        tone-mapping="neutral"
+        poster="img/poster.webp"
+        shadow-intensity="1"
+        autoplay>
+        <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+        </div>
+        <button slot="ar-button">
+          View in your space
+        </button>
+        <div id="ar-prompt">
+          <img src="img/ar_hand_prompt.png">
+        </div>
+      </model-viewer>
+
+      <!-- Modelo SILLY -->
+      <model-viewer class="mv" id="mv-silly"
+        src="modelo/silly.glb"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        tone-mapping="neutral"
+        poster="img/poster.webp"
+        shadow-intensity="1"
+        autoplay>
+        <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+        </div>
+        <button slot="ar-button">
+          View in your space
+        </button>
+        <div id="ar-prompt">
+          <img src="img/ar_hand_prompt.png">
+        </div>
+      </model-viewer>
+
+      <!-- Modelo HIPHOP -->
+      <model-viewer class="mv" id="mv-hiphop"
+        src="modelo/hiphop.glb"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        tone-mapping="neutral"
+        poster="img/poster.webp"
+        shadow-intensity="1"
+        autoplay>
+        <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+        </div>
+        <button slot="ar-button">
+          View in your space
+        </button>
+        <div id="ar-prompt">
+          <img src="img/ar_hand_prompt.png">
+        </div>
+      </model-viewer>
+
+      <!-- Modelo PLAYING -->
+      <model-viewer class="mv" id="mv-playing"
+        src="modelo/playing.glb"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        tone-mapping="neutral"
+        poster="img/poster.webp"
+        shadow-intensity="1"
+        autoplay>
+        <div class="progress-bar hide" slot="progress-bar">
+          <div class="update-bar"></div>
+        </div>
+        <button slot="ar-button">
+          View in your space
+        </button>
+        <div id="ar-prompt">
+          <img src="img/ar_hand_prompt.png">
+        </div>
+      </model-viewer>
+
+    </div>
+
+    <!-- ===== BOTONES FIJOS (NO SE MUEVEN CON EL MODELO) ===== -->
+    <div id="ui-buttons">
+      <button data-target="mv-inicial">Inicial</button>
+      <button data-target="mv-pelea">Pelea</button>
+      <button data-target="mv-rumba">Rumba</button>
+      <button data-target="mv-silly">Silly</button>
+      <button data-target="mv-hiphop">Hip hop</button>
+      <button data-target="mv-playing">Playing</button>
+    </div>
+
+    <!-- JS -->
+    <script src="js/app.js"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  </body>
 </html>
