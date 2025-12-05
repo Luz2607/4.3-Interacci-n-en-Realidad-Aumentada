@@ -14,30 +14,11 @@ body {
   height: 100%;
 }
 
-/* CONTENEDOR DE ESCENA */
-#scene {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* Todos los model-viewer apilados uno sobre otro */
-.mv {
-  position: absolute;
-  inset: 0;
+/* El model-viewer ocupa toda la pantalla */
+model-viewer {
   width: 100%;
   height: 100%;
   background-color: #ffffff;
-
-  opacity: 0;
-  pointer-events: none;    /* no reciben clics si no están activos */
-}
-
-/* Solo el activo se ve y recibe interacción */
-.mv.active {
-  opacity: 1;
-  pointer-events: auto;
 }
 
 /* ===== Barra de progreso ===== */
@@ -74,8 +55,7 @@ body {
 
 /* ===== Botón AR ===== */
 
-#ar-button,
-.mv button[slot="ar-button"] {
+#ar-button {
   background-image: url(../img/ar_icon.png);
   background-repeat: no-repeat;
   background-size: 20px 20px;
@@ -113,7 +93,7 @@ body {
   to   { transform: translateX(-100px); }
 }
 
-#ar-prompt {
+model-viewer > #ar-prompt {
   position: absolute;
   left: 50%;
   bottom: 60px;
@@ -121,42 +101,18 @@ body {
   display: none;
 }
 
-.mv[ar-status="session-started"] > #ar-prompt {
+model-viewer[ar-status="session-started"] > #ar-prompt {
   display: block;
 }
 
-#ar-prompt > img {
+model-viewer > #ar-prompt > img {
   animation: circle 4s linear infinite;
 }
 
-/* ===== Barra de botones fija ===== */
-/* ===== Barra de botones fija ===== */
+/* ===== Botones inmersivos (hotspots) ===== */
 
-#ui-buttons {
-  position: fixed;
-  bottom: 30px;              /* 👈 antes 16px */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;               /* por encima del modelo, pero por debajo del prompt AR */
-
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-
-  max-width: 90%;
-  justify-content: center;
-}
-
-/* Móvil: sube un poco más la barra para que se vea mejor */
-@media (max-width: 600px) {
-  #ui-buttons {
-    bottom: 110px;
-  }
-}
-
-
-/* Estilo de cada botón */
-#ui-buttons button {
+.hotspot {
+  --min-hotspot-opacity: 1;
   background: rgba(15, 23, 42, 0.9);
   color: #ffffff;
   border: none;
@@ -165,10 +121,8 @@ body {
   font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
-
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
   cursor: pointer;
-
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -176,8 +130,17 @@ body {
     color 0.2s ease;
 }
 
-#ui-buttons button:hover {
+.hotspot:hover {
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
   background: rgba(59, 130, 246, 0.95);
+}
+
+.hotspot:focus {
+  outline: none;
+}
+
+.hotspot:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }

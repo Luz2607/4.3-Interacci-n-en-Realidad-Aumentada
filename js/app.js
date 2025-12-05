@@ -1,4 +1,4 @@
-// ===== BARRA DE PROGRESO PARA TODOS LOS MODEL-VIEWER =====
+// ===== BARRA DE PROGRESO =====
 const onProgress = (event) => {
   const progressBar = event.target.querySelector('.progress-bar');
   const updatingBar = event.target.querySelector('.update-bar');
@@ -15,36 +15,39 @@ const onProgress = (event) => {
   }
 };
 
-const viewers = document.querySelectorAll('.mv');
-viewers.forEach(v => v.addEventListener('progress', onProgress));
+const modelViewer = document.querySelector('#avatar');
+modelViewer.addEventListener('progress', onProgress);
 
-// ===== CAMBIO DE MODEL-VIEWER ACTIVO (SIN PARPADEO) =====
-let activeId = 'mv-inicial';
+// Cuando termina de cargar algún modelo
+modelViewer.addEventListener('load', () => {
+  console.log('Modelo cargado:', modelViewer.src);
+  modelViewer.play();
+});
 
-function showModel(id) {
-  if (id === activeId) return;
+// ===== CAMBIAR MODELO CON HOTSPOTS INMERSIVOS =====
+const hotspots = document.querySelectorAll('.hotspot');
 
-  const current = document.getElementById(activeId);
-  const next = document.getElementById(id);
-
-  if (!next) {
-    console.warn('No se encontró el modelo:', id);
-    return;
-  }
-
-  current.classList.remove('active');
-  next.classList.add('active');
-  activeId = id;
-
-  console.log('Modelo activo:', activeId);
-}
-
-// Botones de la barra
-const buttons = document.querySelectorAll('#ui-buttons button');
-buttons.forEach((btn) => {
+hotspots.forEach((btn) => {
   btn.addEventListener('click', (event) => {
-    const targetId = event.currentTarget.dataset.target;
-    if (!targetId) return;
-    showModel(targetId);
+    const newSrc = event.currentTarget.dataset.src;
+    if (!newSrc) return;
+
+    // Si ya está ese modelo, no hacemos nada
+    if (modelViewer.src.endsWith(newSrc)) {
+      console.log('Ya está mostrando:', newSrc);
+      return;
+    }
+
+    console.log('Cambiando a:', newSrc);
+
+    modelViewer.pause();
+    modelViewer.src = newSrc;
+
+    const onLoaded = () => {
+      modelViewer.play();
+      modelViewer.removeEventListener('load', onLoaded);
+    };
+
+    modelViewer.addEventListener('load', onLoaded);
   });
 });

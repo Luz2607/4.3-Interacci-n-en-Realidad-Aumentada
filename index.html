@@ -3,111 +3,73 @@
   <head>
     <title>WebXR AR - Varios modelos Mixamo</title>
     <meta charset="utf-8">
-    <meta name="description" content="Modelos Mixamo en AR con botones para cambiar animaciones">
+    <meta name="description" content="Modelos Mixamo en AR con botones inmersivos">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" href="./css/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <!-- CONTENEDOR DE ESCENA: AQUÍ VAN TODOS LOS MODELOS APILADOS -->
-    <div id="scene">
+    <!-- UN SOLO MODEL-VIEWER -->
+    <model-viewer id="avatar"
+      src="modelo/inicial_draco.glb"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      camera-controls
+      tone-mapping="neutral"
+      poster="img/poster.webp"
+      shadow-intensity="1"
+      autoplay>
 
-      <!-- Modelo INICIAL -->
-      <model-viewer class="mv active" id="mv-inicial"
-        src="modelo/inicial_draco.glb"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        tone-mapping="neutral"
-        poster="img/poster.webp"
-        shadow-intensity="1"
-        autoplay>
-        <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
-        </div>
-        <button slot="ar-button" id="ar-button">
-          View in your space
-        </button>
-        <div id="ar-prompt">
-          <img src="img/ar_hand_prompt.png">
-        </div>
-      </model-viewer>
+      <!-- ===== BARRA DE PROGRESO ===== -->
+      <div class="progress-bar hide" slot="progress-bar">
+        <div class="update-bar"></div>
+      </div>
 
+      <!-- Botón AR -->
+      <button slot="ar-button" id="ar-button">
+        View in your space
+      </button>
 
+      <!-- Prompt AR -->
+      <div id="ar-prompt">
+        <img src="img/ar_hand_prompt.png">
+      </div>
 
-      <!-- Modelo RUMBA -->
-      <model-viewer class="mv" id="mv-rumba"
-        src="modelo/rumba_draco.glb"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        tone-mapping="neutral"
-        poster="img/poster.webp"
-        shadow-intensity="1"
-        autoplay>
-        <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
-        </div>
-        <button slot="ar-button">
-          View in your space
-        </button>
-        <div id="ar-prompt">
-          <img src="img/ar_hand_prompt.png">
-        </div>
-      </model-viewer>
+      <!-- ===== BOTONES INMERSIVOS (HOTSPOTS 3D) ===== -->
+      <!-- Usan tus archivos *_draco.glb -->
 
-      <!-- Modelo SILLY -->
-      <model-viewer class="mv" id="mv-pelea"
-        src="modelo/pelea_draco.glb"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        tone-mapping="neutral"
-        poster="img/poster.webp"
-        shadow-intensity="1"
-        autoplay>
-        <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
-        </div>
-        <button slot="ar-button">
-          View in your space
-        </button>
-        <div id="ar-prompt">
-          <img src="img/ar_hand_prompt.png">
-        </div>
-      </model-viewer>
+      <button class="hotspot" slot="hotspot-inicial"
+        data-src="modelo/inicial_draco.glb"
+        data-position="-0.5 1.5 0.5"
+        data-normal="0 0 1"
+        data-visibility-attribute="visible">
+        Inicial
+      </button>
 
-      <!-- Modelo HIPHOP -->
-      <model-viewer class="mv" id="mv-hiphop"
-        src="modelo/hiphop_draco.glb"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
-        camera-controls
-        tone-mapping="neutral"
-        poster="img/poster.webp"
-        shadow-intensity="1"
-        autoplay>
-        <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
-        </div>
-        <button slot="ar-button">
-          View in your space
-        </button>
-        <div id="ar-prompt">
-          <img src="img/ar_hand_prompt.png">
-        </div>
-      </model-viewer>
+      <button class="hotspot" slot="hotspot-rumba"
+        data-src="modelo/rumba_draco.glb"
+        data-position="0.5 1.5 0.5"
+        data-normal="0 0 1"
+        data-visibility-attribute="visible">
+        Rumba
+      </button>
 
+      <button class="hotspot" slot="hotspot-pelea"
+        data-src="modelo/pelea_draco.glb"
+        data-position="-0.5 1.1 0.5"
+        data-normal="0 0 1"
+        data-visibility-attribute="visible">
+        Pelea
+      </button>
 
-    </div>
+      <button class="hotspot" slot="hotspot-hiphop"
+        data-src="modelo/hiphop_draco.glb"
+        data-position="0.5 1.1 0.5"
+        data-normal="0 0 1"
+        data-visibility-attribute="visible">
+        Hip hop
+      </button>
 
-    <!-- ===== BOTONES FIJOS (NO SE MUEVEN CON EL MODELO) ===== -->
-    <div id="ui-buttons">
-      <button data-target="mv-inicial">Inicial</button>
-      <button data-target="mv-rumba">Rumba</button>
-      <button data-target="mv-pelea">Pelea</button>
-      <button data-target="mv-hiphop">Hip hop</button>
-
-    </div>
+    </model-viewer>
 
     <!-- JS -->
     <script src="js/app.js"></script>
